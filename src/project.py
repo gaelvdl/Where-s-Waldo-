@@ -1,22 +1,28 @@
 import pygame
 
+def loading_screen(screen, resolution):
+	pygame.display.set_caption("Loading...")
+	screen.fill("black")
+	resolution = (961, 964)
+	screen = pygame.display.set_mode(resolution)
+	loading_image = pygame.image.load('Loading.png')
+	loading_image = pygame.transform.scale(loading_image, resolution)
+
+	
+		
 
 def main():
 	pygame.init()
 	pygame.display.set_caption("Where's Waldo?")
-
-	# load all 149 frames into a list
-	frames = []
-	for frame in range(150):
-		img = pygame.image.load(f'frame_{frame:03d}_delay-0.04s.gif').convert_alpha()
-		frames.append(img)
-		pygame.image.load(f'frame_{frame:03d}_delay-0.04s.gif')
-	dt = 0
 	resolution = (961, 964)
 	# create the display first, then load/scale the background image
 	screen = pygame.display.set_mode(resolution)
+	screen.fill("black")
+	frames = []
+	dt = 0
 	bg_image = pygame.image.load('waldo.png')
-	explosion_1 = pygame.image.load('')
+	frame_delay = 40  
+	last_frame_time = pygame.time.get_ticks()
 	bg_image = pygame.transform.scale(bg_image, resolution)
 	start_time = pygame.time.get_ticks()
 	show_image = False
@@ -34,10 +40,6 @@ def main():
 
 		# draw the background each frame before flipping
 		screen.blit(bg_image, (0, 0))
-
-		if show_image:
-			rect = explosion_1.get_rect(center=explosion_pos)
-			screen.blit(explosion_1, rect)
 
 		pygame.display.flip()
 
