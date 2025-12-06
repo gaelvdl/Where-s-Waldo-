@@ -1,15 +1,8 @@
 import pygame
+import pygame_menu
+import imageio as iio
 
-def loading_screen(screen, resolution):
-	pygame.display.set_caption("Loading...")
-	screen.fill("black")
-	resolution = (961, 964)
-	screen = pygame.display.set_mode(resolution)
-	loading_image = pygame.image.load('Loading.png')
-	loading_image = pygame.transform.scale(loading_image, resolution)
-
-	
-		
+pygame.init()
 
 def main():
 	pygame.init()
@@ -44,6 +37,22 @@ def main():
 		pygame.display.flip()
 
 	pygame.quit()
+
+
+def menu(screen, resolution):
+	pygame.init()
+	surface = pygame.display.set_mode(resolution)
+	
+resolution = (961, 964)
+screen = pygame.display.set_mode(resolution)
+def play_game():
+	main()
+menu(screen, (961, 964))
+mainmenu = pygame_menu.Menu('Welcome', 400, 300, theme=pygame_menu.themes.THEME_DARK)
+mainmenu.add.button('Play', play_game)
+mainmenu.add.button('Quit', pygame_menu.events.EXIT)
+mainmenu.mainloop(screen)
+
 
 
 if __name__ == "__main__":
