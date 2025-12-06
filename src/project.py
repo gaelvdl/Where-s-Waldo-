@@ -15,7 +15,7 @@ def main():
 	frames = []
 	dt = 0
 	bg_image = pygame.image.load('waldo.png')
-	explosion = cv2.VideoCapture('explosion.mp4')
+	explosion = cv2.VideoCapture('Waldo_Explode.mp4')
 	frame_delay = 40  
 	last_frame_time = pygame.time.get_ticks()
 	bg_image = pygame.transform.scale(bg_image, resolution)
@@ -27,9 +27,25 @@ def main():
 	while running:
 		for event in pygame.event.get():
 			if event.type == pygame.MOUSEBUTTONDOWN:
-				# record the position and request showing the explosion
-				explosion_pos = pygame.mouse.get_pos()
-				show_image = True
+				mouse_x, mouse_y = pygame.mouse.get_pos()
+				rect_x1, rect_y1 = 100,200
+				rect_x2, rect_y2 = 100,200
+				if rect_x1 <= mouse_x <= rect_x2 and rect_y1 <= mouse_y <= rect_y2:
+					show_image = True
+					explosion_pos = (mouse_x, mouse_y)
+					frames = []
+					while True:
+						ret, frame = explosion.read()
+						if not ret:
+							break
+						frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+						frame = cv2.resize(frame, resolution)
+						frames.append(frame)
+						new_frames = pygame.surfarray.make_surface(frame)
+					for frame in frames:
+						screen.blit(new_frames, (0, 0))
+						pygame.display.flip()
+						pygame.time.delay(frame_delay)
 			if event.type == pygame.QUIT:
 				running = False
 
