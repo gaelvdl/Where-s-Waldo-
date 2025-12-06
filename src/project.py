@@ -23,13 +23,14 @@ def main():
 	show_image = False
 	explosion_pos = (0, 0)
 	running = True
+	video_finished = False
 
 	while running:
 		for event in pygame.event.get():
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				mouse_x, mouse_y = pygame.mouse.get_pos()
-				rect_x1, rect_y1 = 100,200
-				rect_x2, rect_y2 = 100,200
+				rect_x1, rect_y1 = 50,300
+				rect_x2, rect_y2 = 100,359
 				if rect_x1 <= mouse_x <= rect_x2 and rect_y1 <= mouse_y <= rect_y2:
 					show_image = True
 					explosion_pos = (mouse_x, mouse_y)
@@ -40,12 +41,16 @@ def main():
 							break
 						frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 						frame = cv2.resize(frame, resolution)
-						frames.append(frame)
 						new_frames = pygame.surfarray.make_surface(frame)
+						frames.append(frame)
 					for frame in frames:
-						screen.blit(new_frames, (0, 0))
-						pygame.display.flip()
+						frame = pygame.surfarray.make_surface(frame)
+						screen.blit(frame, (0, 0))
 						pygame.time.delay(frame_delay)
+						pygame.display.flip()
+					video_finished = True
+					if video_finished == True:
+						menu(screen, resolution)
 			if event.type == pygame.QUIT:
 				running = False
 
@@ -63,6 +68,7 @@ def play_game():
 def menu(screen, resolution):
 	pygame.display.set_caption("Where's Waldo?")
 	surface = pygame.display.set_mode(resolution)
+	mainmenu.mainloop(screen, bgfun=lambda: draw_background(screen, bg_image))
 
 def draw_background(screen, bg_image):
 	screen.blit(bg_image, (0, 0))
