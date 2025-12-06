@@ -1,5 +1,6 @@
 import pygame
 import pygame_menu
+import cv2
 import imageio as iio
 
 pygame.init()
@@ -14,6 +15,7 @@ def main():
 	frames = []
 	dt = 0
 	bg_image = pygame.image.load('waldo.png')
+	explosion = cv2.VideoCapture('explosion.mp4')
 	frame_delay = 40  
 	last_frame_time = pygame.time.get_ticks()
 	bg_image = pygame.transform.scale(bg_image, resolution)
@@ -39,21 +41,25 @@ def main():
 	pygame.quit()
 
 
-def menu(screen, resolution):
-	pygame.init()
-	surface = pygame.display.set_mode(resolution)
-	
-resolution = (961, 964)
-screen = pygame.display.set_mode(resolution)
 def play_game():
 	main()
-menu(screen, (961, 964))
-mainmenu = pygame_menu.Menu('Welcome', 400, 300, theme=pygame_menu.themes.THEME_DARK)
-mainmenu.add.button('Play', play_game)
-mainmenu.add.button('Quit', pygame_menu.events.EXIT)
-mainmenu.mainloop(screen)
 
+def menu(screen, resolution):
+	pygame.display.set_caption("Where's Waldo?")
+	surface = pygame.display.set_mode(resolution)
 
+def draw_background(screen, bg_image):
+	screen.blit(bg_image, (0, 0))
 
 if __name__ == "__main__":
-	main()
+	resolution = (961, 964)
+	screen = pygame.display.set_mode(resolution)
+	
+	bg_image = pygame.image.load('Loading.png')
+	bg_image = pygame.transform.scale(bg_image, resolution)
+	
+	mainmenu = pygame_menu.Menu('Welcome', 400, 300, theme=pygame_menu.themes.THEME_DARK)
+	mainmenu.add.button('Play', play_game)
+	mainmenu.add.button('Quit', pygame_menu.events.EXIT)
+	
+	mainmenu.mainloop(screen, bgfun=lambda: draw_background(screen, bg_image))
