@@ -1,4 +1,12 @@
 # Where-s-Waldo-
+
+## Demo
+https://youtu.be/RbIVZUxbQkY
+
+## GitHub Repository
+https://github.com/gaelvdl/empty 
+
+
 A short game based on the classic kids book "where's waldo?"
 https://github.com/gaelvdl/empty 
 
@@ -8,4 +16,9 @@ There is menu implementation, videos on top of images, and a quick game menu loo
 For the future if i were to ever revisit this project, there could possibly be mulitple levels implemented, as well as music or sound effects.
 Load the game up and play a quick round of Where's Waldo, find the right one, point and click and you win!
 
-https://youtu.be/RbIVZUxbQkY
+
+
+## GitHub Repository
+GitHub Repo: <URL>
+
+## Description
